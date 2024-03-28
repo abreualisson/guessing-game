@@ -34,3 +34,4 @@ O jogo terminará quando o jogador acertar o número secreto ou esgotar todas as
 Contribuições são bem-vindas! Se você tem alguma sugestão de melhoria, correção de bugs ou novas funcionalidades, sinta-se à vontade para enviar um pull request.
 
 
+
