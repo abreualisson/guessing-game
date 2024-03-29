@@ -1,13 +1,15 @@
-import random 
+import random
+import time 
 
-print("********************************")
 print("Bem vindo ao jogo de adivinhação")
-print("********************************")
 
-numero_secreto = random.randrange(1,101)
+numeroSecreto = random.randrange(1,101)
+pontos = 1000
+tempoDeJogo = 0
 
-print("Qual o nível de dificultade?")
-print("(1) Fácil (2) Médio (3) Difícil")
+print("Qual o nível de dificuldade? \n(1) Fácil (2) Médio (3) Difícil")
+
+startCronometro = time.time()
 
 def obterDificuldade():
     while True:
@@ -21,41 +23,53 @@ def obterDificuldade():
                 print("Insira um número de 1 a 3!")
         
         except ValueError: 
-            print("Valor inválido! Insira um número de 1 a 3.")
-        
+            print("Valor inválido! Insira um número de 1 a 3.")  
+
 nivel = obterDificuldade()
 
 if(nivel == 1):
-    total_de_tentativas = 10
+    totalDeTentativas = 10
 elif(nivel == 2):
-    total_de_tentativas = 7
+    totalDeTentativas = 7
 else:
-    total_de_tentativas = 5
+    totalDeTentativas = 5
+
+contagemDoTempo = time.time()
 
 
-for rodada in range (1, total_de_tentativas+1): 
+for rodada in range (1, totalDeTentativas + 1): 
 
-    print("tentativa {} de {}".format(rodada, total_de_tentativas))
+    print("\n \ntentativa {} de {}".format(rodada, totalDeTentativas))
+    
     chute_str = input("Digite o seu número de 1 a 100: ")
-    print("você digitou ", chute_str)
+   #print("você digitou {}\n".format(chute_str))
     chute = int(chute_str)
 
     if(chute < 1 or chute > 100):
         print("Você deve digitar um número entre 1 e 100!")
         continue
 
+    acertou = chute == numeroSecreto
+    maior = chute > numeroSecreto
+    menor = chute < numeroSecreto
 
-    acertou = chute == numero_secreto
-    maior = chute > numero_secreto
-    menor = chute < numero_secreto
-
+    pontosPerdidos = abs(numeroSecreto - chute)
+    
     if(acertou):
-        print("você acertou!")
+        print("****************\nPARABÉNS! VOCÊ ACERTOU\n****************")
         break
-    else: 
+
+    else:
+        pontos -= pontosPerdidos + 5
+
         if(maior):
             print("Você errou! O seu chute foi maior do que o número secreto")
         elif(menor):
-            print("Você errou! O seu chute foi menor do que o número secreto")
+            print("Você errou! O seu chute foi menor do que o número secreto") 
+        
+fimDaContagem = time.time()
 
-print("Fim de jogo")
+tempoDeJogo = abs(int(startCronometro - fimDaContagem)) 
+pontos -= (tempoDeJogo + 10)
+
+print("Fim de jogo\nVocê fez {} pontos".format(pontos))
